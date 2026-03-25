@@ -30,14 +30,10 @@ class MyBcaScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Tahap 1: Header dan Saldo
             _buildHeaderCard(),
-            
-            // Tahap 2: Banner Gebyar Hadiah
             _buildGebyarBanner(),
             const SizedBox(height: 15),
-
-            // Tahap 2: Dasar Kotak Putih untuk Menu
+            
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -45,8 +41,14 @@ class MyBcaScreen extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25)),
                 ),
-                child: const Center(
-                  child: Text('Tahap 2: Kotak Putih Siap Diisi Menu', style: TextStyle(color: Colors.grey)),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 25),
+                      // Tahap 3: Menu Utama
+                      _buildMenuGrid(),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -56,6 +58,7 @@ class MyBcaScreen extends StatelessWidget {
     );
   }
 
+  // ... (Sengaja saya sertakan penuh agar kamu aman copy-paste)
   Widget _buildHeaderCard() {
     return Padding(
       padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 10),
@@ -65,42 +68,22 @@ class MyBcaScreen extends StatelessWidget {
           const Text('HALO, SRI HARDIANTI S', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
           const SizedBox(height: 15),
           Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(15),
-              boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0, 5))],
-            ),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(15), boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0, 5))]),
             child: Column(
               children: [
                 Container(
                   padding: const EdgeInsets.all(15),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-                    gradient: LinearGradient(colors: [Color(0xFF42C4E5), Color(0xFF00A2E9)]),
-                  ),
+                  decoration: const BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)), gradient: LinearGradient(colors: [Color(0xFF42C4E5), Color(0xFF00A2E9)])),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                         decoration: BoxDecoration(color: Colors.white.withOpacity(0.3), borderRadius: BorderRadius.circular(20)),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: const [
-                            Icon(Icons.info_outline, color: Colors.white, size: 16),
-                            SizedBox(width: 5),
-                            Text('Lihat BCA ID', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500)),
-                          ],
-                        ),
+                        child: Row(mainAxisSize: MainAxisSize.min, children: const [Icon(Icons.info_outline, color: Colors.white, size: 16), SizedBox(width: 5), Text('Lihat BCA ID', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500))]),
                       ),
                       const SizedBox(height: 15),
-                      Row(
-                        children: const [
-                          Text('Rekening: 732 - 540 - 2105', style: TextStyle(color: Colors.white, fontSize: 14)),
-                          SizedBox(width: 10),
-                          Icon(Icons.copy_outlined, color: Colors.white, size: 16),
-                        ],
-                      ),
+                      Row(children: const [Text('Rekening: 732 - 540 - 2105', style: TextStyle(color: Colors.white, fontSize: 14)), SizedBox(width: 10), Icon(Icons.copy_outlined, color: Colors.white, size: 16)]),
                     ],
                   ),
                 ),
@@ -111,13 +94,7 @@ class MyBcaScreen extends StatelessWidget {
                     children: [
                       const Text('Saldo Aktif', style: TextStyle(color: Colors.grey, fontSize: 12)),
                       const SizedBox(height: 5),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text('IDR 30,915,105.81', style: TextStyle(color: bcaDarkBlue, fontSize: 24, fontWeight: FontWeight.bold)),
-                          Icon(Icons.visibility, color: bcaBlue),
-                        ],
-                      ),
+                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: const [Text('IDR 30,915,105.81', style: TextStyle(color: bcaDarkBlue, fontSize: 24, fontWeight: FontWeight.bold)), Icon(Icons.visibility, color: bcaBlue)]),
                       const SizedBox(height: 15),
                       const Divider(color: Colors.grey, thickness: 0.3),
                       const SizedBox(height: 10),
@@ -145,20 +122,88 @@ class MyBcaScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [Text('TheNew Gebyar', style: TextStyle(color: Colors.white, fontSize: 12, fontStyle: FontStyle.italic)), Text('Hadiah BCA', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic))]),
+          Row(children: const [Text('Menangkan di Sini', style: TextStyle(color: Colors.white, fontSize: 12)), SizedBox(width: 5), Icon(Icons.chevron_right, color: Colors.white, size: 18)])
+        ],
+      ),
+    );
+  }
+
+  // --- WIDGET TAHAP 3: Menu Grid ---
+  Widget _buildMenuGrid() {
+    return Column(
+      children: [
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text('TheNew Gebyar', style: TextStyle(color: Colors.white, fontSize: 12, fontStyle: FontStyle.italic)),
-              Text('Hadiah BCA', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic)),
+            children: [
+              Row(
+                children: [
+                  _buildMenuIcon(Icons.send, 'Transfer', bcaBlue, false),
+                  _buildMenuIcon(Icons.receipt, 'Bayar &\nIsi Ulang', bcaBlue, true), // Ada badge NEW
+                  _buildMenuIcon(Icons.show_chart, 'Investasi', bcaBlue, false),
+                  _buildMenuIcon(Icons.shopping_bag, 'Lifestyle', Colors.teal, false),
+                  _buildMenuIcon(Icons.description, 'e-Statement', bcaBlue, false),
+                ],
+              ),
+              const SizedBox(height: 25),
+              Row(
+                children: [
+                  _buildMenuIcon(Icons.credit_card, 'Flazz', bcaDarkBlue, false),
+                  _buildMenuIcon(Icons.phone_android, 'Cardless', bcaBlue, false),
+                  _buildMenuIcon(Icons.account_balance, 'Produk\nPerbankan', Colors.indigo, false),
+                  _buildMenuIcon(Icons.health_and_safety, 'Proteksi', Colors.teal, false),
+                  _buildMenuIcon(Icons.grid_view, 'Semua', Colors.grey, false),
+                ],
+              ),
             ],
           ),
-          Row(
-            children: const [
-              Text('Menangkan di Sini', style: TextStyle(color: Colors.white, fontSize: 12)),
-              SizedBox(width: 5),
-              Icon(Icons.chevron_right, color: Colors.white, size: 18),
+        ),
+        const SizedBox(height: 15),
+        // Indikator scroll (titik biru dan abu)
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(width: 20, height: 6, decoration: BoxDecoration(color: Colors.cyan, borderRadius: BorderRadius.circular(5))),
+            const SizedBox(width: 5),
+            Container(width: 6, height: 6, decoration: BoxDecoration(color: Colors.grey[300], shape: BoxShape.circle)),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMenuIcon(IconData icon, String label, Color iconColor, bool isNew) {
+    return SizedBox(
+      width: 85, // Lebar fixed agar ikon sejajar
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(color: Colors.blue[50], shape: BoxShape.circle),
+                child: Icon(icon, color: iconColor, size: 28),
+              ),
+              if (isNew)
+                Positioned(
+                  bottom: -5, left: 0, right: 0,
+                  child: Center(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(color: Colors.orange, borderRadius: BorderRadius.circular(10)),
+                      child: const Text('NEW', style: TextStyle(color: Colors.white, fontSize: 8, fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                ),
             ],
-          )
+          ),
+          const SizedBox(height: 10),
+          Text(label, textAlign: TextAlign.center, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: bcaDarkBlue, height: 1.2)),
         ],
       ),
     );
