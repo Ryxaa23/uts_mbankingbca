@@ -127,7 +127,13 @@ class MyBcaScreen extends StatelessWidget {
                       const SizedBox(height: 15),
                       const Divider(color: Colors.grey, thickness: 0.3),
                       const SizedBox(height: 10),
-                      Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [Row(children: const [Icon(Icons.receipt_long, color: bcaBlue, size: 18), SizedBox(width: 8), Text('Mutasi Rekening', style: TextStyle(color: bcaBlue, fontWeight: FontWeight.w500))]), Row(children: const [Icon(Icons.credit_card, color: bcaBlue, size: 18), SizedBox(width: 8), Text('Rekening Lain', style: TextStyle(color: bcaBlue, fontWeight: FontWeight.w500)])]),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround, 
+                        children: [
+                          Row(children: const [Icon(Icons.receipt_long, color: bcaBlue, size: 18), SizedBox(width: 8), Text('Mutasi Rekening', style: TextStyle(color: bcaBlue, fontWeight: FontWeight.w500))]), 
+                          Row(children: const [Icon(Icons.credit_card, color: bcaBlue, size: 18), SizedBox(width: 8), Text('Rekening Lain', style: TextStyle(color: bcaBlue, fontWeight: FontWeight.w500))])
+                        ],
+                      ),
                     ],
                   ),
                 ),
