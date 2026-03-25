@@ -24,19 +24,33 @@ class MyBcaScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: bcaBlue, // Background utama biru
+      backgroundColor: bcaBlue,
       body: SafeArea(
         bottom: false,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Memanggil fungsi pembuatan Kartu Header & Saldo
-              _buildHeaderCard(),
-              
-              // Nanti banner dan menu putih akan ditambahkan di sini
-            ],
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Tahap 1: Header dan Saldo
+            _buildHeaderCard(),
+            
+            // Tahap 2: Banner Gebyar Hadiah
+            _buildGebyarBanner(),
+            const SizedBox(height: 15),
+
+            // Tahap 2: Dasar Kotak Putih untuk Menu
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25)),
+                ),
+                child: const Center(
+                  child: Text('Tahap 2: Kotak Putih Siap Diisi Menu', style: TextStyle(color: Colors.grey)),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -44,18 +58,12 @@ class MyBcaScreen extends StatelessWidget {
 
   Widget _buildHeaderCard() {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Teks Sapaan
-          const Text(
-            'HALO, SRI HARDIANTI S', 
-            style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)
-          ),
-          const SizedBox(height: 20),
-          
-          // Kartu Saldo Utama
+          const Text('HALO, SRI HARDIANTI S', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 15),
           Container(
             decoration: BoxDecoration(
               color: Colors.white,
@@ -64,27 +72,18 @@ class MyBcaScreen extends StatelessWidget {
             ),
             child: Column(
               children: [
-                // --- Bagian Atas Kartu (Gradasi Cyan) ---
                 Container(
                   padding: const EdgeInsets.all(15),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-                    gradient: LinearGradient(
-                      colors: [Color(0xFF42C4E5), Color(0xFF00A2E9)],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                    ),
+                    gradient: LinearGradient(colors: [Color(0xFF42C4E5), Color(0xFF00A2E9)]),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Tombol Lihat BCA ID
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.3), 
-                          borderRadius: BorderRadius.circular(20)
-                        ),
+                        decoration: BoxDecoration(color: Colors.white.withOpacity(0.3), borderRadius: BorderRadius.circular(20)),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: const [
@@ -94,20 +93,17 @@ class MyBcaScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      // Teks Rekening & Ikon Copy
+                      const SizedBox(height: 15),
                       Row(
                         children: const [
                           Text('Rekening: 732 - 540 - 2105', style: TextStyle(color: Colors.white, fontSize: 14)),
                           SizedBox(width: 10),
-                          Icon(Icons.copy, color: Colors.white, size: 18),
+                          Icon(Icons.copy_outlined, color: Colors.white, size: 16),
                         ],
                       ),
                     ],
                   ),
                 ),
-                
-                // --- Bagian Bawah Kartu (Putih) ---
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: Column(
@@ -125,20 +121,11 @@ class MyBcaScreen extends StatelessWidget {
                       const SizedBox(height: 15),
                       const Divider(color: Colors.grey, thickness: 0.3),
                       const SizedBox(height: 10),
-                      // Tombol Mutasi & Rekening Lain
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Row(children: const [
-                            Icon(Icons.receipt_long, color: bcaBlue, size: 20), 
-                            SizedBox(width: 8), 
-                            Text('Mutasi Rekening', style: TextStyle(color: bcaBlue, fontWeight: FontWeight.w500))
-                          ]),
-                          Row(children: const [
-                            Icon(Icons.credit_card, color: bcaBlue, size: 20), 
-                            SizedBox(width: 8), 
-                            Text('Rekening Lain', style: TextStyle(color: bcaBlue, fontWeight: FontWeight.w500))
-                          ]),
+                          Row(children: const [Icon(Icons.receipt_long, color: bcaBlue, size: 18), SizedBox(width: 8), Text('Mutasi Rekening', style: TextStyle(color: bcaBlue, fontWeight: FontWeight.w500))]),
+                          Row(children: const [Icon(Icons.credit_card, color: bcaBlue, size: 18), SizedBox(width: 8), Text('Rekening Lain', style: TextStyle(color: bcaBlue, fontWeight: FontWeight.w500))]),
                         ],
                       )
                     ],
@@ -147,6 +134,31 @@ class MyBcaScreen extends StatelessWidget {
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGebyarBanner() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              Text('TheNew Gebyar', style: TextStyle(color: Colors.white, fontSize: 12, fontStyle: FontStyle.italic)),
+              Text('Hadiah BCA', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic)),
+            ],
+          ),
+          Row(
+            children: const [
+              Text('Menangkan di Sini', style: TextStyle(color: Colors.white, fontSize: 12)),
+              SizedBox(width: 5),
+              Icon(Icons.chevron_right, color: Colors.white, size: 18),
+            ],
+          )
         ],
       ),
     );
